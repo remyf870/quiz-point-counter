@@ -1,76 +1,47 @@
-const taskInput = document.getElementById("task-input");
-const addTaskBtn = document.getElementById("add-task");
-const taskList = document.getElementById("task-list");
+const redPts = document.getElementById("red-pts");
+const bluePts = document.getElementById("blue-pts");
 
-// Load from localStorage
-window.onload = function () {
-  const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  savedTasks.forEach(task => renderTask(task));
-};
+const redPlus = document.getElementById("red-plus");
+const redMinus = document.getElementById("red-minus");
 
-function renderTask(task) {
-  const li = document.createElement("li");
+const bluePlus = document.getElementById("blue-plus");
+const blueMinus = document.getElementById("blue-minus");
 
-  const span = document.createElement("span");
-  span.textContent = task.name;
-  if (task.completed) span.classList.add("completed");
+let redScore = 0;
+let blueScore = 0;
 
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.checked = task.completed;
-  checkbox.addEventListener("change", () => {
-    span.classList.toggle("completed");
-    task.completed = checkbox.checked;
-    saveTasks();
-  });
-
-  const deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "X";
-  deleteBtn.addEventListener("click", () => {
-    li.remove();
-    removeTask(task);
-    saveTasks();
-  });
-
-  li.append(checkbox, span, deleteBtn);
-  taskList.appendChild(li);
+function addPtsRed(x){
+    function addNewRedScore(){
+        return redScore += x;
+    }
+    return addNewRedScore;
 }
 
-function addTask() {
-  const taskName = taskInput.value.trim();
-  if (!taskName) return;
+const redPtAdd = addPtsRed(1);
+const redPtMinus = addPtsRed(-1);
 
-  const task = { name: taskName, completed: false };
-  renderTask(task);
-  saveTask(task);
-
-  taskInput.value = "";
+function addPtsBlue(x){
+    function addNewBlueScore(){
+        return blueScore += x;
+    }
+    return addNewBlueScore;
 }
 
-addTaskBtn.addEventListener("click", addTask);
-taskInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") addTask();
-});
+const bluePtAdd = addPtsBlue(1)
+const bluePtMinus = addPtsBlue(-1)
 
-// Save to localStorage
-function saveTasks() {
-  const tasks = [];
-  taskList.querySelectorAll("li").forEach(li => {
-    const name = li.querySelector("span").textContent;
-    const completed = li.querySelector("input").checked;
-    tasks.push({ name, completed });
-  });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
+redPlus.addEventListener("click",()=>{
+    redPts.textContent = redPtAdd()
+})
 
-function saveTask(task) {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.push(task);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
+redMinus.addEventListener("click",()=>{
+    redPts.textContent = redPtMinus()
+})
 
-function removeTask(taskToRemove) {
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks = tasks.filter(task => task.name !== taskToRemove.name);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
+bluePlus.addEventListener("click",()=>{
+    bluePts.textContent = bluePtAdd()
+})
+
+blueMinus.addEventListener("click",()=>{
+    bluePts.textContent = bluePtMinus()
+})

@@ -3,19 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>To-Do List App</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Quiz Night Scoreboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  
 </head>
-<body>
-  <div class="container">
-    <h1>My To-Do List</h1>
-    <div class="input-section">
-      <input type="text" id="task-input" placeholder="Add a new task" />
-      <button id="add-task">Add</button>
+<body> 
+  <div id="moon"></div>
+  <div class= "container-wrapper">
+    <div id ="heading-wrapper">
+      <h1>Quiz Night Scoreboard</h1>
     </div>
-    <ul id="task-list"></ul>
-  </div>
+    <div id ="red-team-cont" class="points-container">
+      <h2>Red Team</h2>
+      <div id="red-pts" class="points">0</div>
+      <button id= "red-plus" class="plus btn"><p>+</p></button>
+      <button id= "red-minus" class="minus btn"><p>-</p></button>
+    </div>
 
+    <div id ="blue-team-cont"  class="points-container">
+      <h2>Blue Team</h2>
+      <div id= "blue-pts" class="points">0</div>
+      <button id= "blue-plus" class="plus btn"><p>+</p></button>
+      <button id= "blue-minus" class="minus btn"><p>-</p></button>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
